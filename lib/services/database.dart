@@ -27,4 +27,8 @@ class DatabaseService {
       );
     });
   }
+
+  getQuizData() async{
+    return await Firestore.instance.collection("Quiz").snapshots();
+  }
 }
