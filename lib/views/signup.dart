@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizmaker/helper/functions.dart';
 import '../widgets/widgets.dart';
 import '../services/auth.dart';
 import 'signin.dart';
@@ -21,19 +22,22 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _isLoading = true;
       });
-       authService.signUpEmailandPass(email, password).then((value) {
-        if (value != null) {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-          );
-        }
-      });
+      authService.signUpEmailandPass(email, password).then(
+        (value) {
+          if (value != null) {
+            setState(() {
+              _isLoading = false;
+            });
+            HelperFunctions.saveUserLoginDetails(isLoggedIn: true);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
+            );
+          }
+        },
+      );
     }
   }
 
@@ -104,22 +108,7 @@ class _SignUpState extends State<SignUp> {
                       onTap: () {
                         signUp();
                       },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 18),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        width: MediaQuery.of(context).size.width - 48,
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
+                      child: blueButton(context: context, label: "Sign Up"),
                     ),
                     SizedBox(
                       height: 24,

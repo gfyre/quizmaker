@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizmaker/helper/functions.dart';
 import '../widgets/widgets.dart';
 import '../services/auth.dart';
 import 'signup.dart';
@@ -26,6 +27,7 @@ class _SignInState extends State<SignIn> {
           setState(() {
             _isLoading = false;
           });
+          HelperFunctions.saveUserLoginDetails(isLoggedIn: true);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -74,6 +76,7 @@ class _SignInState extends State<SignIn> {
                       height: 6,
                     ),
                     TextFormField(
+                      obscureText: true,
                       validator: (value) {
                         return value.isEmpty ? "Enter a valid password" : null;
                       },
